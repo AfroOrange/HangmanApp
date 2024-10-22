@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #fcd6a5;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Label text="Hangman App" textAlignment="CENTER" textFill="#ea5f5f" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold Italic" size="28.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <center>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="30.0" prefWidth="250.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
+               <image>
+                  <Image url="@../images/9.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="nicknameField" prefHeight="26.0" prefWidth="526.0" promptText="Introduce your nickname" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#onLoginAction" text="Login">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <Label alignment="CENTER" text="© 2024 Afro Orange. All rights reserved." BorderPane.alignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+   </bottom>
+</BorderPane>
