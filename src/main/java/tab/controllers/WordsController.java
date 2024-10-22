@@ -25,7 +25,6 @@ public class WordsController implements Initializable {
 
     @FXML
     void onRemoveWordAction(ActionEvent event) {
-
     }
 
     @Override

@@ -11,15 +11,15 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import tab.controllers.GameController;
-import users.Users;
-
+import models.Users;
 
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +37,8 @@ public class LoginController implements Initializable {
     @FXML
     private BorderPane root;
 
+    private Image appIcon;
+
     private MediaPlayer mediaPlayer;
 
     @FXML
@@ -47,7 +49,8 @@ public class LoginController implements Initializable {
             loginAlert.setContentText("Please enter a nickname");
             loginAlert.showAndWait();
         } else {
-            if (mediaPlayer != null) { // Se detiene la música de fondo
+            // Cancela la reproducción de música de fondo
+            if (mediaPlayer != null) {
                 mediaPlayer.stop();
             }
             // se llama al método que guarda los datos del usuario
@@ -69,9 +72,14 @@ public class LoginController implements Initializable {
             GameController gameController = new GameController();
             gameController.setNickname(nicknameField.getText()); // Se establece el nickname en el usuario
 
+            // llama al controlador de la aplicación
             RootController rootController = new RootController(gameController);
 
+            // añade el stage y el icono de la aplicación
+            appIcon = new Image(getClass().getResource("/images/9.png").toString());
             Stage stage = new Stage();
+
+            stage.getIcons().add(appIcon);
             stage.setTitle("Hangman");
             stage.setScene(new Scene(rootController.getRoot(), 600, 450));
             stage.show();
@@ -108,8 +116,11 @@ public class LoginController implements Initializable {
         File jsonFile = new File("users/users.json");
         List<Users> usersList = new ArrayList<>();
 
-        // Comprueba si existe el archivo JSON, si no, crea una lista vacía
-        if (jsonFile.exists()) {
+        // Check if the file exists, if not, create an empty file
+        if (!jsonFile.exists()) {
+            jsonFile.createNewFile();
+        }
+        else  { // Comprueba si existe el archivo JSON, si no, crea una lista vacía
             String jsonContent = Files.readString(jsonFile.toPath());
             if (!jsonContent.isEmpty()) {
                 usersList = gson.fromJson(jsonContent, new TypeToken<List<Users>>() {
@@ -132,16 +143,22 @@ public class LoginController implements Initializable {
             throw new IOException("Failed to write user data to JSON file", e);
         }
     }
-    private void playBackgroundMusic() {
-        String musicPath = Objects.requireNonNull(getClass().getResource("/music/socorro.mp3")).toExternalForm();
 
-        mediaPlayer = new MediaPlayer(new Media(musicPath));
-        mediaPlayer.setVolume(0.5);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-
-        mediaPlayer.play();
-    }
     public TextField getNicknameField() {
         return nicknameField;
+    }
+
+    private void playBackgroundMusic() {
+        // Locate the media file (you can use the classloader to find it in resources)
+        String musicPath = Objects.requireNonNull(getClass().getResource("/music/login_background_music_oria.wav")).toExternalForm();
+
+        // Create the Media and MediaPlayer objects
+        mediaPlayer = new MediaPlayer(new Media(musicPath));
+
+        mediaPlayer.setVolume(0.1);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+
+        // Start playing the music
+        mediaPlayer.play();
     }
 }

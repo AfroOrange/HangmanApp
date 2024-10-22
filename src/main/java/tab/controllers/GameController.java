@@ -10,9 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import windows.controllers.LoginController;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -30,6 +33,8 @@ public class GameController implements Initializable {
 
     @FXML
     private Label nicknameLabel;
+
+    private MediaPlayer mediaPlayer;
 
     @FXML
     void onTrySolveAction(ActionEvent event) {
@@ -63,4 +68,5 @@ public class GameController implements Initializable {
     public void setNickname(String nickname) {
         nicknameSession.set(nickname);
     }
+
 }

@@ -21,10 +21,11 @@ public class RootController implements Initializable {
         @FXML
         private BorderPane root;
 
-        private final GameController gameController;
+    private final GameController gameController;
 
         public RootController(GameController gameController) {
             this.gameController = gameController;
+
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RootControllerView.fxml"));
                 loader.setController(this);

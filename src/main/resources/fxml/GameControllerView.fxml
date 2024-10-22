@@ -73,9 +73,9 @@
             <Label alignment="CENTER" text="Palabra para adivinar" />
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutY="58.0" spacing="4.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="35.0">
+      <HBox alignment="CENTER" layoutY="58.0" spacing="3.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="35.0">
          <children>
-            <Label text="Player ID: ">
+            <Label text="Player ID:">
                <graphic>
                   <FontIcon iconLiteral="fas-user" iconSize="12" />
                </graphic>
