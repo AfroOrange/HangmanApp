@@ -45,29 +45,17 @@
             </Button>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="641.0" layoutY="35.0" prefHeight="100.0" prefWidth="50.0" spacing="3.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="35.0">
+      <VBox alignment="TOP_CENTER" layoutX="536.0" layoutY="11.0" prefHeight="50.0" prefWidth="50.0" spacing="3.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0">
          <children>
             <Label>
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
                <graphic>
-                  <FontIcon iconLiteral="fas-star" iconSize="17" />
+                  <FontIcon iconLiteral="fas-trophy" iconSize="17" />
                </graphic>
             </Label>
-            <TextArea fx:id="scoreBox" editable="false" prefHeight="50.0" prefWidth="50.0" style="-fx-border-color: orange;" />
-            <Label>
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <graphic>
-                  <FontIcon iconLiteral="fas-heart" iconSize="17" />
-               </graphic>
-            </Label>
-            <TextArea prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: orange;" />
+            <TextArea fx:id="scoreBox" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="50.0" style="-fx-border-color: orange;" />
          </children>
       </VBox>
       <VBox alignment="CENTER" layoutX="200.0" layoutY="41.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="25.0">
@@ -77,10 +65,10 @@
                   <Image url="@../images/1.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" text="Palabra para adivinar" />
+            <Label alignment="CENTER" text="_ _ _ _ _ _ _ _ _  _ _ _ _" />
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutY="58.0" spacing="3.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="35.0">
+      <HBox alignment="CENTER" layoutY="58.0" spacing="3.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0">
          <children>
             <Label text="Player ID:">
                <graphic>
@@ -104,6 +92,7 @@
             <ListView fx:id="guessedWordsList" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: orange;" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
+      <Label fx:id="livesLabel" layoutX="10.0" layoutY="36.0" text="🖤🖤🖤🖤🖤🖤🖤🖤🖤" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="30.0" />
    </children>
    <opaqueInsets>
       <Insets />

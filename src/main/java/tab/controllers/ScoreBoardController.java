@@ -56,23 +56,18 @@ public class ScoreBoardController implements Initializable {
     private void showScoreBoardData() throws IOException, FileNotFoundException {
         Gson gson = new Gson();
 
-        // Define the path to the JSON file (adjust the path as per your directory structure)
         Path jsonFilePath = Paths.get(FILE_PATH);
 
-        // Check if the file exists
+        // Comprueba si el archivo existe
         if (!Files.exists(jsonFilePath)) {
             throw new FileNotFoundException("The file " + FILE_PATH + " was not found");
         }
 
         String jsonContent = Files.readString(jsonFilePath);
-
-        // Parse the JSON into a list of Users
         List<Users> usersList = gson.fromJson(jsonContent, new TypeToken<List<Users>>() {}.getType());
 
-        // Clear the ListView before adding items
         scoreBoardList.getItems().clear();
 
-        // Populate the ListView with formatted usernames and scores
         for (Users user : usersList) {
             String userDisplay = user.getName() + " | Score: " + user.getScore();
             scoreBoardList.getItems().add(userDisplay);
@@ -80,28 +75,22 @@ public class ScoreBoardController implements Initializable {
     }
 
     public boolean checkUsername(String nickname) throws IOException {
-        // Define the path to the JSON file
         Path jsonFilePath = Paths.get(FILE_PATH);
 
-        // Check if the file exists; if not, return false because no users exist yet
         if (!Files.exists(jsonFilePath)) {
-            return false; // No file, so no matching username
+            return false;
         }
 
-        // Read the JSON content
         String jsonContent = Files.readString(jsonFilePath);
-
-        // Parse the JSON into a list of Users
         List<Users> usersList = new Gson().fromJson(jsonContent, new TypeToken<List<Users>>() {}.getType());
 
-        // Check if any user has the given nickname
         for (Users user : usersList) {
             if (user.getName().equalsIgnoreCase(nickname)) {
-                return true; // Username exists
+                return true;
             }
         }
 
-        return false; // Username does not exist
+        return false;
     }
 
 }

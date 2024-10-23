@@ -95,10 +95,10 @@ public class LoginController implements Initializable {
         String nickname = nicknameField.getText();
         ScoreBoardController scoreBoardController = new ScoreBoardController();
 
-        // Check if the username already exists
+        // Comprueba si el nickname ya existe en la lista
         if (scoreBoardController.checkUsername(nickname)) {
             Alert duplicateNickname = new Alert(Alert.AlertType.INFORMATION);
-            duplicateNickname.setTitle("Login");
+            duplicateNickname.setTitle("Re-Login");
             duplicateNickname.setContentText("Welcome back: " + nicknameField.getText() + "!");
             duplicateNickname.showAndWait();
 
@@ -107,12 +107,12 @@ public class LoginController implements Initializable {
             Alert loginAlert = new Alert(Alert.AlertType.INFORMATION);
 
             // Se produce un mensaje de bienvenida con el nickname introducido
-            loginAlert.setTitle("Login");
+            loginAlert.setTitle("First Login");
             loginAlert.setHeaderText("Welcome: " + nicknameField.getText() + "!");
             loginAlert.setContentText("Hangman game is about to start");
             loginAlert.showAndWait();
 
-            // Existing code for adding the new user if the username is unique
+            // Si el usuario es nuevo, lo agrega a la lista
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             File jsonFile = new File("users/users.json");
             List<Users> usersList = new ArrayList<>();
@@ -139,16 +139,15 @@ public class LoginController implements Initializable {
     }
 
     private void playBackgroundMusic() {
-        // Locate the media file (you can use the classloader to find it in resources)
         String musicPath = Objects.requireNonNull(getClass().getResource("/music/login_background_music_oria.wav")).toExternalForm();
 
-        // Create the Media and MediaPlayer objects
+        // Crea el objeto MediaPlayer
         mediaPlayer = new MediaPlayer(new Media(musicPath));
 
+        // establece las características de la música
         mediaPlayer.setVolume(0.1);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 
-        // Start playing the music
         mediaPlayer.play();
     }
 

@@ -89,16 +89,13 @@ public class RootController implements Initializable {
     }
 
     private void playInGameBackgroundMusic() {
-        // Locate the media file (you can use the classloader to find it in resources)
         String musicPath = Objects.requireNonNull(getClass().getResource("/music/ingame_background_music_oria.wav")).toExternalForm();
 
-        // Create the Media and MediaPlayer objects
         backgroundMusic = new MediaPlayer(new Media(musicPath));
 
         backgroundMusic.setVolume(0.1);
         backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
 
-        // Start playing the music
         backgroundMusic.play();
     }
 
