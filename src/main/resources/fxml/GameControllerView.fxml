@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
@@ -15,26 +16,32 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" style="-fx-background-color: #fee9cd;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER" layoutX="150.0" layoutY="317.0" prefWidth="300.0" spacing="5.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="325.0">
          <children>
-            <TextField fx:id="wordGuesserField" prefWidth="180.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" onAction="#onTryWordAction" text="Word">
+            <TextField fx:id="wordGuesserField" prefWidth="180.0" style="-fx-border-color: orange;" HBox.hgrow="NEVER" />
+            <Button mnemonicParsing="false" onAction="#onTryWordAction" style="-fx-background-color: #ffb658; -fx-background-radius: 5;" text="Word">
                <tooltip>
                   <Tooltip text="Try a word" />
                </tooltip>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onTrySolveAction" text="Solve" HBox.hgrow="NEVER">
+            <Button mnemonicParsing="false" onAction="#onTrySolveAction" style="-fx-background-color: #ffb658; -fx-background-radius: 5;" text="Solve" HBox.hgrow="NEVER">
                <tooltip>
                   <Tooltip text="Solve!" />
                </tooltip>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Button>
          </children>
       </HBox>
@@ -48,7 +55,7 @@
                   <FontIcon iconLiteral="fas-star" iconSize="17" />
                </graphic>
             </Label>
-            <TextArea fx:id="scoreBox" editable="false" prefHeight="50.0" prefWidth="50.0" />
+            <TextArea fx:id="scoreBox" editable="false" prefHeight="50.0" prefWidth="50.0" style="-fx-border-color: orange;" />
             <Label>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -60,7 +67,7 @@
                   <FontIcon iconLiteral="fas-heart" iconSize="17" />
                </graphic>
             </Label>
-            <TextArea prefHeight="200.0" prefWidth="200.0" />
+            <TextArea prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: orange;" />
          </children>
       </VBox>
       <VBox alignment="CENTER" layoutX="200.0" layoutY="41.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="25.0">
@@ -87,6 +94,16 @@
             </Label>
          </children>
       </HBox>
+      <VBox alignment="CENTER" layoutX="14.0" layoutY="104.0" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label text="Guessed Words">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <ListView fx:id="guessedWordsList" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: orange;" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
    </children>
    <opaqueInsets>
       <Insets />

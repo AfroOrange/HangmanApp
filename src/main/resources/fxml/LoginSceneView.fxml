@@ -11,12 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #fcd6a5;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <Label text="Hangman App" textAlignment="CENTER" textFill="#ea5f5f" BorderPane.alignment="CENTER">
+      <Label text="Hangman Game" textAlignment="CENTER" textFill="#ea5f5f" BorderPane.alignment="CENTER">
          <font>
-            <Font name="System Bold Italic" size="28.0" />
+            <Font name="System Bold" size="28.0" />
          </font>
          <BorderPane.margin>
             <Insets top="10.0" />
@@ -31,11 +30,14 @@
                   <Image url="@../images/9.png" />
                </image>
             </ImageView>
-            <TextField fx:id="nicknameField" prefHeight="26.0" prefWidth="526.0" promptText="Introduce your nickname" />
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#onLoginAction" text="Login">
+            <TextField fx:id="nicknameField" prefHeight="26.0" prefWidth="526.0" promptText="Introduce your nickname" style="-fx-border-color: orange;" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#onLoginAction" prefWidth="150.0" style="-fx-background-color: #ffb658;" text="Login">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
             </Button>
          </children>
       </VBox>

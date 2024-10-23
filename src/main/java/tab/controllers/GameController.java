@@ -7,20 +7,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import windows.controllers.LoginController;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
 
     private final StringProperty nicknameSession = new SimpleStringProperty();
+
+    @FXML
+    private ListView<?> guessedWordsList;
 
     @FXML
     private AnchorPane root;

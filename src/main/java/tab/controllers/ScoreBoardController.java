@@ -26,6 +26,10 @@ public class ScoreBoardController implements Initializable {
     @FXML
     private ListView<String> scoreBoardList;
 
+    private List<Users> usersList;
+
+    private final String FILE_PATH = "users/users.json";
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -53,11 +57,11 @@ public class ScoreBoardController implements Initializable {
         Gson gson = new Gson();
 
         // Define the path to the JSON file (adjust the path as per your directory structure)
-        Path jsonFilePath = Paths.get("users/users.json");
+        Path jsonFilePath = Paths.get(FILE_PATH);
 
         // Check if the file exists
         if (!Files.exists(jsonFilePath)) {
-            throw new FileNotFoundException("The file 'users/users.json' was not found.");
+            throw new FileNotFoundException("The file " + FILE_PATH + " was not found");
         }
 
         String jsonContent = Files.readString(jsonFilePath);
@@ -68,11 +72,36 @@ public class ScoreBoardController implements Initializable {
         // Clear the ListView before adding items
         scoreBoardList.getItems().clear();
 
-        // Populate the ListView with formatted user names and scores
+        // Populate the ListView with formatted usernames and scores
         for (Users user : usersList) {
-            String userDisplay = user.getName() + " - " + user.getScore();
-            scoreBoardList.getItems().add(userDisplay); // Add each user display string to the ListView
+            String userDisplay = user.getName() + " | Score: " + user.getScore();
+            scoreBoardList.getItems().add(userDisplay);
         }
+    }
+
+    public boolean checkUsername(String nickname) throws IOException {
+        // Define the path to the JSON file
+        Path jsonFilePath = Paths.get(FILE_PATH);
+
+        // Check if the file exists; if not, return false because no users exist yet
+        if (!Files.exists(jsonFilePath)) {
+            return false; // No file, so no matching username
+        }
+
+        // Read the JSON content
+        String jsonContent = Files.readString(jsonFilePath);
+
+        // Parse the JSON into a list of Users
+        List<Users> usersList = new Gson().fromJson(jsonContent, new TypeToken<List<Users>>() {}.getType());
+
+        // Check if any user has the given nickname
+        for (Users user : usersList) {
+            if (user.getName().equalsIgnoreCase(nickname)) {
+                return true; // Username exists
+            }
+        }
+
+        return false; // Username does not exist
     }
 
 }

@@ -19,6 +19,7 @@ import tab.controllers.GameController;
 import models.Users;
 
 import javafx.scene.media.Media;
+import tab.controllers.ScoreBoardController;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,27 +63,9 @@ public class LoginController implements Initializable {
                 loginAlert.showAndWait();
                 return;
             }
-
-            // Se produce un mensaje de bienvenida con el nickname introducido
-            loginAlert.setTitle("Login");
-            loginAlert.setHeaderText("Welcome " + nicknameField.getText());
-            loginAlert.setContentText("Hangman game is about to start");
-            loginAlert.showAndWait();
-
-            GameController gameController = new GameController();
-            gameController.setNickname(nicknameField.getText()); // Se establece el nickname en el usuario
-
+            
             // llama al controlador de la aplicación
-            RootController rootController = new RootController(gameController);
-
-            // añade el stage y el icono de la aplicación
-            appIcon = new Image(getClass().getResource("/images/9.png").toString());
-            Stage stage = new Stage();
-
-            stage.getIcons().add(appIcon);
-            stage.setTitle("Hangman");
-            stage.setScene(new Scene(rootController.getRoot(), 600, 450));
-            stage.show();
+            loginScene();
 
             // Se cierra la ventana de login
             ((Node) (event.getSource())).getScene().getWindow().hide();
@@ -109,40 +92,47 @@ public class LoginController implements Initializable {
     }
 
     private void saveScoreBoardData() throws IOException {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .create();
+        String nickname = nicknameField.getText();
+        ScoreBoardController scoreBoardController = new ScoreBoardController();
 
-        File jsonFile = new File("users/users.json");
-        List<Users> usersList = new ArrayList<>();
+        // Check if the username already exists
+        if (scoreBoardController.checkUsername(nickname)) {
+            Alert duplicateNickname = new Alert(Alert.AlertType.INFORMATION);
+            duplicateNickname.setTitle("Login");
+            duplicateNickname.setContentText("Welcome back: " + nicknameField.getText() + "!");
+            duplicateNickname.showAndWait();
 
-        // Check if the file exists, if not, create an empty file
-        if (!jsonFile.exists()) {
-            jsonFile.createNewFile();
-        }
-        else  { // Comprueba si existe el archivo JSON, si no, crea una lista vacía
-            String jsonContent = Files.readString(jsonFile.toPath());
-            if (!jsonContent.isEmpty()) {
-                usersList = gson.fromJson(jsonContent, new TypeToken<List<Users>>() {
-                }.getType());
+        } else {
+
+            Alert loginAlert = new Alert(Alert.AlertType.INFORMATION);
+
+            // Se produce un mensaje de bienvenida con el nickname introducido
+            loginAlert.setTitle("Login");
+            loginAlert.setHeaderText("Welcome: " + nicknameField.getText() + "!");
+            loginAlert.setContentText("Hangman game is about to start");
+            loginAlert.showAndWait();
+
+            // Existing code for adding the new user if the username is unique
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            File jsonFile = new File("users/users.json");
+            List<Users> usersList = new ArrayList<>();
+
+            if (jsonFile.exists()) {
+                String jsonContent = Files.readString(jsonFile.toPath());
+                if (!jsonContent.isEmpty()) {
+                    usersList = gson.fromJson(jsonContent, new TypeToken<List<Users>>() {
+                    }.getType());
+                }
             }
-        }
+            Users newUser = new Users();
+            newUser.setName(nickname);
+            usersList.add(newUser);
 
-        // Crea un nuevo usuario y lo agrega a la lista dado el nickname
-        Users newUser = new Users();
-        newUser.setName(nicknameField.getText());
-
-        usersList.add(newUser);
-        String json = gson.toJson(usersList);
-
-        // Se asegura que el archivo Json existe y se puede escribir
-        try {
+            String json = gson.toJson(usersList);
             Files.writeString(jsonFile.toPath(), json);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new IOException("Failed to write user data to JSON file", e);
         }
     }
+
 
     public TextField getNicknameField() {
         return nicknameField;
@@ -160,5 +150,21 @@ public class LoginController implements Initializable {
 
         // Start playing the music
         mediaPlayer.play();
+    }
+
+    private void loginScene() {
+
+        GameController gameController = new GameController();
+        gameController.setNickname(nicknameField.getText()); // Se establece el nickname en el usuario
+        RootController rootController = new RootController(gameController);
+
+        // añade el stage y el icono de la aplicación
+        appIcon = new Image(getClass().getResource("/images/9.png").toString());
+        Stage stage = new Stage();
+
+        stage.getIcons().add(appIcon);
+        stage.setTitle("Hangman");
+        stage.setScene(new Scene(rootController.getRoot()));
+        stage.show();
     }
 }

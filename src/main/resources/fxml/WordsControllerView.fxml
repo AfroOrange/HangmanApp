@@ -3,37 +3,43 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fee9cd;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextArea fx:id="wordsTextArea" layoutX="100.0" layoutY="11.2" prefHeight="379.0" prefWidth="454.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="136.0" AnchorPane.topAnchor="11.0" />
       <VBox alignment="TOP_CENTER" layoutX="469.0" layoutY="14.0" prefHeight="200.0" prefWidth="130.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onAddWordButton" prefWidth="100.0" text="Add">
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddWordButton" prefWidth="100.0" style="-fx-background-color: #ffb658; -fx-background-radius: 10;" text="Add">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
                <tooltip>
                   <Tooltip text="Add word to the list" />
                </tooltip>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onRemoveWordAction" prefWidth="100.0" text="Remove">
+            <Button mnemonicParsing="false" onAction="#onRemoveWordAction" prefWidth="100.0" style="-fx-background-color: #ffb658; -fx-background-radius: 10;" text="Remove">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
                <tooltip>
                   <Tooltip text="Remove a word from the list" />
                </tooltip>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
             </Button>
          </children>
       </VBox>
+      <ListView fx:id="wordsListView" layoutX="74.0" layoutY="92.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: orange;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="5.0" />
    </children>
    <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      <Insets bottom="5.0" left="5.0" top="5.0" />
    </padding>
 </AnchorPane>

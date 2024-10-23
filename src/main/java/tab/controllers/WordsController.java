@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -16,7 +16,7 @@ public class WordsController implements Initializable {
     private AnchorPane root;
 
     @FXML
-    private TextArea wordsTextArea;
+    private ListView<?> wordsListView;
 
     @FXML
     void onAddWordButton(ActionEvent event) {

@@ -7,9 +7,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class HangmanApp extends Application {
+import java.util.Objects;
 
-    private Image appIcon;
+public class HangmanApp extends Application {
 
     private final LoginController rootController = new LoginController();
 
@@ -19,7 +19,7 @@ public class HangmanApp extends Application {
         Scene hangmanScene = new Scene(rootController.getRoot());
 
         Stage hangmanStage = new Stage();
-        appIcon = new Image(getClass().getResource("/images/9.png").toString());
+        Image appIcon = new Image(Objects.requireNonNull(getClass().getResource("/images/9.png")).toString());
 
         hangmanStage.getIcons().add(appIcon);
         hangmanStage.setTitle("Hangman Game");
