@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -11,9 +12,10 @@
 
 <AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fee9cd;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="469.0" layoutY="14.0" prefHeight="200.0" prefWidth="130.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
+      <VBox alignment="TOP_CENTER" layoutX="469.0" layoutY="14.0" prefHeight="200.0" prefWidth="130.0" spacing="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
          <children>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddWordButton" prefWidth="100.0" style="-fx-background-color: #ffb658; -fx-background-radius: 10;" text="Add">
+            <TextField fx:id="wordsTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefColumnCount="10" promptText="Add/Remove word" style="-fx-border-color: orange;" VBox.vgrow="NEVER" />
+            <Button contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#onAddWordButton" prefWidth="100.0" style="-fx-background-color: #ffb658; -fx-background-radius: 10;" text="Add">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -37,7 +39,7 @@
             </Button>
          </children>
       </VBox>
-      <ListView fx:id="wordsListView" layoutX="74.0" layoutY="92.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: orange;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="5.0" />
+      <ListView fx:id="wordsListView" layoutX="74.0" layoutY="92.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: orange;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" top="5.0" />

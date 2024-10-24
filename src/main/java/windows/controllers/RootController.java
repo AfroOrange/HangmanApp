@@ -14,7 +14,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import tab.controllers.GameController;
-import tab.controllers.HelpController;
 import tab.controllers.ScoreBoardController;
 import tab.controllers.WordsController;
 
@@ -71,7 +70,16 @@ public class RootController implements Initializable {
 
         // bindear el volumen de la música al slider
         volumeSlider.setValue(backgroundMusic.getVolume());
+
         backgroundMusic.volumeProperty().bindBidirectional(volumeSlider.valueProperty());
+
+//        gameController.startGame();
+    }
+
+    @FXML
+    void onNewGameAction(ActionEvent event) {
+        gameController.getHiddenWordLabel().setText("");
+        gameController.startGame();
     }
 
     @FXML

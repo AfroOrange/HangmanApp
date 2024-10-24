@@ -28,7 +28,7 @@ public class ScoreBoardController implements Initializable {
 
     private List<Users> usersList;
 
-    private final String FILE_PATH = "users/users.json";
+    private final String FILE_PATH = "jsonFiles/users.json";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,7 +53,7 @@ public class ScoreBoardController implements Initializable {
         return root;
     }
 
-    private void showScoreBoardData() throws IOException, FileNotFoundException {
+    private void showScoreBoardData() throws IOException {
         Gson gson = new Gson();
 
         Path jsonFilePath = Paths.get(FILE_PATH);

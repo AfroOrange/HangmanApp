@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
@@ -55,7 +54,11 @@
                   <FontIcon iconLiteral="fas-trophy" iconSize="17" />
                </graphic>
             </Label>
-            <TextArea fx:id="scoreBox" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="50.0" style="-fx-border-color: orange;" />
+            <TextField fx:id="scoreTextField" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefColumnCount="5" prefWidth="40.0" style="-fx-border-color: orange;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
          </children>
       </VBox>
       <VBox alignment="CENTER" layoutX="200.0" layoutY="41.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="25.0">
@@ -65,7 +68,10 @@
                   <Image url="@../images/1.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" text="_ _ _ _ _ _ _ _ _  _ _ _ _" />
+            <Label fx:id="hiddenWordLabel" alignment="CENTER">
+               <font>
+                  <Font name="Fira Code Regular" size="30.0" />
+               </font></Label>
          </children>
       </VBox>
       <HBox alignment="CENTER" layoutY="58.0" spacing="3.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0">

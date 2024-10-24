@@ -1,4 +1,4 @@
-package tab.controllers;
+package windows.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,7 +8,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;

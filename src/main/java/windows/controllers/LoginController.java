@@ -114,7 +114,7 @@ public class LoginController implements Initializable {
 
             // Si el usuario es nuevo, lo agrega a la lista
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            File jsonFile = new File("users/users.json");
+            File jsonFile = new File("jsonFiles/users.json");
             List<Users> usersList = new ArrayList<>();
 
             if (jsonFile.exists()) {
