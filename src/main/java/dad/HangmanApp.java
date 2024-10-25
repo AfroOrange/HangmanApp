@@ -11,18 +11,18 @@ import java.util.Objects;
 
 public class HangmanApp extends Application {
 
-    private final LoginController rootController = new LoginController();
+    private final LoginController loginController = new LoginController();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Scene hangmanScene = new Scene(rootController.getRoot());
+        Scene hangmanScene = new Scene(loginController.getRoot());
 
         Stage hangmanStage = new Stage();
         Image appIcon = new Image(Objects.requireNonNull(getClass().getResource("/images/9.png")).toString());
 
         hangmanStage.getIcons().add(appIcon);
-        hangmanStage.setTitle("Hangman Game");
+        hangmanStage.setTitle("Market App");
         hangmanStage.setScene(hangmanScene);
         hangmanStage.show();
     }

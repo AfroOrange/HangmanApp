@@ -98,7 +98,7 @@
             <ListView fx:id="guessedWordsList" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: orange;" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <Label fx:id="livesLabel" layoutX="10.0" layoutY="36.0" text="🖤🖤🖤🖤🖤🖤🖤🖤🖤" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="30.0" />
+      <Label fx:id="livesLabel" layoutX="10.0" layoutY="36.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="30.0" />
    </children>
    <opaqueInsets>
       <Insets />

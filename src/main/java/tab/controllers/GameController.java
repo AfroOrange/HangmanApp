@@ -6,10 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import models.SecretWord;
@@ -42,7 +39,7 @@ public class GameController implements Initializable {
     private TextField scoreTextField;
 
     @FXML
-    private TextField wordGuesserField;
+    public TextField wordGuesserField;
 
     @FXML
     private Label nicknameLabel;
@@ -115,6 +112,8 @@ public class GameController implements Initializable {
         hiddenWordLabel.textProperty().bindBidirectional(secretWord.hiddenWordProperty());
 
         // Reset fields
+        livesLabel.setText("\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4");
+        guessedWordsList.setEditable(true);
         guessedWordsList.getItems().clear();
         wordGuesserField.clear();
         scoreTextField.setText("0");
@@ -125,6 +124,11 @@ public class GameController implements Initializable {
         if (!currentLives.isEmpty()) {
             String updatedLives = currentLives.substring(0, currentLives.length() - 2); // Remove last character
             livesLabel.setText(updatedLives); // Update livesLabel with new string
+        }
+        if (currentLives.isEmpty()) {
+            Alert gameOverAlert = new Alert(Alert.AlertType.WARNING);
+            gameOverAlert.setContentText("Game Over");
+            gameOverAlert.showAndWait();
         }
     }
 

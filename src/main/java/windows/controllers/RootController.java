@@ -23,6 +23,15 @@ import java.util.ResourceBundle;
 
 public class RootController implements Initializable {
 
+        // controllers
+        private final WordsController wordsController = new WordsController();
+        private final Tab wordsTab = new Tab("Words");
+
+        private MediaPlayer backgroundMusic;
+        private final GameController gameController;
+
+        // view
+
         @FXML
         private Slider volumeSlider;
 
@@ -31,10 +40,6 @@ public class RootController implements Initializable {
 
         @FXML
         private BorderPane root;
-
-        private MediaPlayer backgroundMusic;
-
-        private final GameController gameController;
 
         public RootController(GameController gameController) {
             this.gameController = gameController;
@@ -57,8 +62,7 @@ public class RootController implements Initializable {
         Tab gameTab = new Tab("Game");
         gameTab.setContent(gameController.getRoot());
 
-        Tab wordsTab = new Tab("Words");
-        wordsTab.setContent(new WordsController().getRoot());
+        wordsTab.setContent(wordsController.getRoot());
 
         Tab scoreBoardTab = new Tab("Score Board");
         scoreBoardTab.setContent(new ScoreBoardController().getRoot());
@@ -70,16 +74,17 @@ public class RootController implements Initializable {
 
         // bindear el volumen de la música al slider
         volumeSlider.setValue(backgroundMusic.getVolume());
-
         backgroundMusic.volumeProperty().bindBidirectional(volumeSlider.valueProperty());
 
-//        gameController.startGame();
+        gameController.wordGuesserField.setEditable(false);
     }
 
     @FXML
     void onNewGameAction(ActionEvent event) {
+        gameController.wordGuesserField.setEditable(true);
         gameController.getHiddenWordLabel().setText("");
         gameController.startGame();
+        wordsTab.setDisable(true);
     }
 
     @FXML

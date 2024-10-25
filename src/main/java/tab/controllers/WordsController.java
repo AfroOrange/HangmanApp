@@ -53,7 +53,6 @@ public class WordsController implements Initializable {
 
         // Bindings
         wordsListView.itemsProperty().bindBidirectional(wordsList);
-
     }
 
     public void saveWordtoJson() {
