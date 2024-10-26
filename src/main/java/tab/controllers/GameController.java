@@ -8,14 +8,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import models.ImagesContainer;
 import models.SecretWord;
 import windows.controllers.RootController;
 
 import java.net.URL;
+import java.util.Dictionary;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -24,6 +28,8 @@ public class GameController implements Initializable {
 
     private final StringProperty nicknameSession = new SimpleStringProperty();
     private SecretWord secretWord;
+    private ImagesContainer imagesContainer;
+    private int imageIndex = 1;
 
     // view
 
@@ -43,6 +49,9 @@ public class GameController implements Initializable {
     private AnchorPane root;
 
     @FXML
+    private ImageView hangedImage;
+
+    @FXML
     private TextField scoreTextField;
 
     @FXML
@@ -50,6 +59,12 @@ public class GameController implements Initializable {
 
     @FXML
     private Label nicknameLabel;
+
+    @FXML
+    private Button trySolveButton;
+
+    @FXML
+    private Button tryWordButton;
 
     private MediaPlayer mediaPlayer;
 
@@ -61,41 +76,60 @@ public class GameController implements Initializable {
     @FXML
     void onTryWordAction(ActionEvent event) {
         String inputText = wordGuesserField.getText();
+        imagesContainer = new ImagesContainer();
 
-        // condición para no introducir dos letras iguales
-        if (guessedWordsList.getItems().contains(inputText)) {
-            Label label = new Label("Letter already introduced");
-            label.setStyle("-fx-background-color: orange; -fx-padding: 10;");
-            label.setLayoutX(guessingHbox.getLayoutX() + 75);
-            label.setLayoutY(guessingHbox.getLayoutY() + guessingHbox.getHeight() - 17);
-            root.getChildren().add(label);
+        if (imageIndex == 9) {
+            Alert gameOverAlert = new Alert(Alert.AlertType.WARNING);
+            gameOverAlert.setTitle("Game Over :(");
+            gameOverAlert.setContentText("Try Again!");
+            gameOverAlert.showAndWait();
+
+            hiddenWordLabel.setText("PRESS F2 TO START A NEW GAME!");
+            wordGuesserField.setEditable(false);
+            tryWordButton.setDisable(true);
+            trySolveButton.setDisable(true);
+
+        } else if (guessedWordsList.getItems().contains(inputText)) {
+            Label wrongLetterLabel = new Label(String.format("Letter '%s' already introduced", inputText));
+            wrongLetterLabel.setStyle("-fx-background-color: orange; -fx-padding: 10;");
+
+            // añadir coordenadas del hbox para centrar la etiqueta
+            wrongLetterLabel.setLayoutX(guessingHbox.getLayoutX() + 75);
+            wrongLetterLabel.setLayoutY(guessingHbox.getLayoutY() + guessingHbox.getHeight() - 17);
+            root.getChildren().add(wrongLetterLabel);
 
             // Animación para desvanecer el mensaje
-            FadeTransition fade = new FadeTransition(Duration.seconds(2), label);
+            FadeTransition fade = new FadeTransition(Duration.seconds(2), wrongLetterLabel);
             fade.setFromValue(1.0);
             fade.setToValue(0.0);
-            fade.setOnFinished(e -> root.getChildren().remove(label));
+            fade.setOnFinished(e -> root.getChildren().remove(wrongLetterLabel));
             fade.play();
 
-        } else if (inputText != null && !inputText.isEmpty()) {
-            char guessedLetter = inputText.charAt(0); // Recoge el primer caracter del textfield
+        } else if (inputText != null && !inputText.isEmpty() && !guessedWordsList.getItems().contains(inputText)) {
+               char guessedLetter = inputText.charAt(0); // Recoge el primer caracter del textfield
 
-            if (secretWord.guessLetter(guessedLetter) == 0) {
-                // Si la letra no está, se añade a las palabras usadas y se resta 1 al score
-                scoreTextField.setText(String.valueOf(Integer.parseInt(scoreTextField.getText()) - 1));
-                healthPointsUpdate();
+               if (secretWord.guessLetter(guessedLetter) == 0) {
+                   // Si la letra no está, se añade a las palabras usadas y se resta 1 al score
+                   scoreTextField.setText(String.valueOf(Integer.parseInt(scoreTextField.getText()) - 1));
+                   healthPointsUpdate();
 
-            } else {
-                // Si la letra se encuentra en la palabra, se actualiza la palabra oculta
-                scoreTextField.setText(String.valueOf(Integer.parseInt(scoreTextField.getText()) + 1));
-                secretWord.updateHiddenWord();
-                hiddenWordLabel.setText(secretWord.getHiddenWord());
-            }
-            // Añade al palabra usada a la lista
-            guessedWordsList.getItems().add(inputText);
-            wordGuesserField.clear();
-        }
-    }
+                   imageIndex += 1;
+                   if (imageIndex <= 9) { // Ensure index is within bounds
+                       hangedImage.setImage(imagesContainer.getImage(imageIndex));
+                   }
+               }
+               else {
+                   // Si la letra se encuentra en la palabra, se actualiza la palabra oculta
+                   scoreTextField.setText(String.valueOf(Integer.parseInt(scoreTextField.getText()) + 1));
+                   secretWord.updateHiddenWord();
+                   hiddenWordLabel.setText(secretWord.getHiddenWord());
+               }
+               // Añade al palabra usada a la lista
+               guessedWordsList.getItems().add(inputText);
+               wordGuesserField.clear();
+           }
+       }
+
 
     public GameController() {
         try {
@@ -134,7 +168,7 @@ public class GameController implements Initializable {
         hiddenWordLabel.textProperty().bindBidirectional(secretWord.hiddenWordProperty());
 
         // Reset fields
-        livesLabel.setText("\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4");
+        livesLabel.setText("\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4");
         guessedWordsList.setEditable(true);
         guessedWordsList.getItems().clear();
         wordGuesserField.clear();
@@ -146,11 +180,6 @@ public class GameController implements Initializable {
         if (!currentLives.isEmpty()) {
             String updatedLives = currentLives.substring(0, currentLives.length() - 2); // Remove last character
             livesLabel.setText(updatedLives); // Update livesLabel with new string
-        }
-        if (currentLives.isEmpty()) {
-            Alert gameOverAlert = new Alert(Alert.AlertType.WARNING);
-            gameOverAlert.setContentText("Game Over");
-            gameOverAlert.showAndWait();
         }
     }
 
@@ -190,4 +219,5 @@ public class GameController implements Initializable {
     public HBox getGuessingHbox() {
         return guessingHbox;
     }
+
 }

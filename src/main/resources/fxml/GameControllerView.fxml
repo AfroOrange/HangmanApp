@@ -20,7 +20,7 @@
       <HBox fx:id="guessingHbox" alignment="CENTER" layoutX="150.0" layoutY="317.0" prefWidth="300.0" spacing="5.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="325.0">
          <children>
             <TextField fx:id="wordGuesserField" prefWidth="180.0" style="-fx-border-color: orange;" HBox.hgrow="NEVER" />
-            <Button mnemonicParsing="false" onAction="#onTryWordAction" style="-fx-background-color: #ffb658; -fx-background-radius: 5;" text="Word">
+            <Button fx:id="tryWordButton" mnemonicParsing="false" onAction="#onTryWordAction" style="-fx-background-color: #ffb658; -fx-background-radius: 5;" text="Word">
                <tooltip>
                   <Tooltip text="Try a word" />
                </tooltip>
@@ -31,7 +31,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onTrySolveAction" style="-fx-background-color: #ffb658; -fx-background-radius: 5;" text="Solve" HBox.hgrow="NEVER">
+            <Button fx:id="trySolveButton" mnemonicParsing="false" onAction="#onTrySolveAction" style="-fx-background-color: #ffb658; -fx-background-radius: 5;" text="Solve" HBox.hgrow="NEVER">
                <tooltip>
                   <Tooltip text="Solve!" />
                </tooltip>
@@ -86,7 +86,7 @@
          </children>
       </VBox>
       <Label fx:id="livesLabel" layoutX="10.0" layoutY="36.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="30.0" />
-      <ImageView fitHeight="197.0" fitWidth="192.0" layoutX="230.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="171.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="229.1284942626953" AnchorPane.topAnchor="44.0">
+      <ImageView fx:id="hangedImage" fitHeight="197.0" fitWidth="192.0" layoutX="230.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="171.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="229.1284942626953" AnchorPane.topAnchor="44.0">
          <image>
             <Image url="@../images/1.png" />
          </image>
