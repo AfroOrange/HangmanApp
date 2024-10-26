@@ -41,6 +41,7 @@
                         <KeyCodeCombination alt="UP" code="F2" control="UP" meta="UP" shift="UP" shortcut="ANY" />
                      </accelerator>
                   </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#onStopGameAction" text="Finish Game" />
                </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Settings">

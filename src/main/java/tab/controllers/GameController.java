@@ -1,5 +1,6 @@
 package tab.controllers;
 
+import javafx.animation.FadeTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -8,8 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import models.SecretWord;
+import windows.controllers.RootController;
 
 import java.net.URL;
 import java.util.List;
@@ -31,6 +35,9 @@ public class GameController implements Initializable {
 
     @FXML
     private Label livesLabel;
+
+    @FXML
+    private HBox guessingHbox;
 
     @FXML
     private AnchorPane root;
@@ -55,7 +62,22 @@ public class GameController implements Initializable {
     void onTryWordAction(ActionEvent event) {
         String inputText = wordGuesserField.getText();
 
-        if (inputText != null && !inputText.isEmpty()) {
+        // condición para no introducir dos letras iguales
+        if (guessedWordsList.getItems().contains(inputText)) {
+            Label label = new Label("Letter already introduced");
+            label.setStyle("-fx-background-color: orange; -fx-padding: 10;");
+            label.setLayoutX(guessingHbox.getLayoutX() + 75);
+            label.setLayoutY(guessingHbox.getLayoutY() + guessingHbox.getHeight() - 17);
+            root.getChildren().add(label);
+
+            // Animación para desvanecer el mensaje
+            FadeTransition fade = new FadeTransition(Duration.seconds(2), label);
+            fade.setFromValue(1.0);
+            fade.setToValue(0.0);
+            fade.setOnFinished(e -> root.getChildren().remove(label));
+            fade.play();
+
+        } else if (inputText != null && !inputText.isEmpty()) {
             char guessedLetter = inputText.charAt(0); // Recoge el primer caracter del textfield
 
             if (secretWord.guessLetter(guessedLetter) == 0) {
@@ -132,7 +154,6 @@ public class GameController implements Initializable {
         }
     }
 
-
     // getters and setters
     public Label getHiddenWordLabel() {
         return hiddenWordLabel;
@@ -148,5 +169,25 @@ public class GameController implements Initializable {
 
     public void setGuessedWordsList(ListView<String> guessedWordsList) {
         this.guessedWordsList = guessedWordsList;
+    }
+
+    public TextField getScoreTextField() {
+        return scoreTextField;
+    }
+
+    public void setScoreTextField(TextField scoreTextField) {
+        this.scoreTextField = scoreTextField;
+    }
+
+    public SecretWord getSecretWord() {
+        return secretWord;
+    }
+
+    public Label getLivesLabel() {
+        return livesLabel;
+    }
+
+    public HBox getGuessingHbox() {
+        return guessingHbox;
     }
 }

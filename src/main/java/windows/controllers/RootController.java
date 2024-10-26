@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -69,15 +70,32 @@ public class RootController implements Initializable {
 
         editionTabPane.getTabs().addAll(gameTab, wordsTab, scoreBoardTab);
 
-        // Se inicia la música de fondo
-        playInGameBackgroundMusic();
-
-        // bindear el volumen de la música al slider
-        volumeSlider.setValue(backgroundMusic.getVolume());
-        backgroundMusic.volumeProperty().bindBidirectional(volumeSlider.valueProperty());
-
         gameController.wordGuesserField.setEditable(false);
     }
+
+    @FXML
+    public void onStopGameAction() {
+        // crea una alerta para indicar que el juego terminó y revelar la hiddenword
+        Alert stopGameAlert = new Alert(Alert.AlertType.INFORMATION);
+        stopGameAlert.setTitle("Game Finished");
+        stopGameAlert.setContentText("The secret word was: " + gameController.getSecretWord().toString());
+        stopGameAlert.showAndWait();
+
+        // limpia los campos
+        gameController.getHiddenWordLabel().setText("PRESS F2 TO START A NEW GAME!");
+        gameController.getGuessedWordsList().getItems().clear();
+        gameController.wordGuesserField.clear();
+        gameController.getLivesLabel().setText(" ");
+        gameController.wordGuesserField.setEditable(false);
+        gameController.getScoreTextField().setText(" ");
+
+        // se para la música
+        backgroundMusic.stop();
+
+        // habilita de nuevo wordTab
+        wordsTab.setDisable(false);
+        }
+
 
     @FXML
     void onNewGameAction(ActionEvent event) {
@@ -85,6 +103,13 @@ public class RootController implements Initializable {
         gameController.getHiddenWordLabel().setText("");
         gameController.startGame();
         wordsTab.setDisable(true);
+
+        // Se inicia la música de fondo
+        playInGameBackgroundMusic();
+
+        // bindear el volumen de la música al slider
+        volumeSlider.setValue(backgroundMusic.getVolume());
+        backgroundMusic.volumeProperty().bindBidirectional(volumeSlider.valueProperty());
     }
 
     @FXML

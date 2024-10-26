@@ -17,7 +17,7 @@
 
 <AnchorPane fx:id="root" style="-fx-background-color: #fee9cd;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER" layoutX="150.0" layoutY="317.0" prefWidth="300.0" spacing="5.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="325.0">
+      <HBox fx:id="guessingHbox" alignment="CENTER" layoutX="150.0" layoutY="317.0" prefWidth="300.0" spacing="5.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="325.0">
          <children>
             <TextField fx:id="wordGuesserField" prefWidth="180.0" style="-fx-border-color: orange;" HBox.hgrow="NEVER" />
             <Button mnemonicParsing="false" onAction="#onTryWordAction" style="-fx-background-color: #ffb658; -fx-background-radius: 5;" text="Word">
@@ -61,19 +61,6 @@
             </TextField>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="200.0" layoutY="41.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="25.0">
-         <children>
-            <ImageView fitHeight="197.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/1.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="hiddenWordLabel" alignment="CENTER">
-               <font>
-                  <Font name="Fira Code Regular" size="30.0" />
-               </font></Label>
-         </children>
-      </VBox>
       <HBox alignment="CENTER" layoutY="58.0" spacing="3.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0">
          <children>
             <Label text="Player ID:">
@@ -99,6 +86,16 @@
          </children>
       </VBox>
       <Label fx:id="livesLabel" layoutX="10.0" layoutY="36.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="30.0" />
+      <ImageView fitHeight="197.0" fitWidth="192.0" layoutX="230.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="171.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="229.1284942626953" AnchorPane.topAnchor="44.0">
+         <image>
+            <Image url="@../images/1.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="hiddenWordLabel" alignment="CENTER" layoutX="150.0" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="338.0" text="PRESS F2 TO PLAY!" AnchorPane.bottomAnchor="119.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="112.0" AnchorPane.topAnchor="278.0">
+         <font>
+            <Font name="Fira Code Regular" size="20.0" />
+         </font>
+      </Label>
    </children>
    <opaqueInsets>
       <Insets />
