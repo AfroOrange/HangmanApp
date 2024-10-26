@@ -77,7 +77,7 @@ public class RootController implements Initializable {
     public void onStopGameAction() {
         // crea una alerta para indicar que el juego terminó y revelar la hiddenword
         Alert stopGameAlert = new Alert(Alert.AlertType.INFORMATION);
-        stopGameAlert.setTitle("Game Finished");
+        stopGameAlert.setTitle(String.format("Game Over, you got %s points", gameController.getScoreTextField().toString()));
         stopGameAlert.setContentText("The secret word was: " + gameController.getSecretWord().toString());
         stopGameAlert.showAndWait();
 

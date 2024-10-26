@@ -1,6 +1,6 @@
-Hangman Game Rules:
+# Hangman Game Rules:
 
-Objective:
+## Objective:
 The goal of Hangman is to guess the hidden word before a hangman figure is completely drawn.
 You win by guessing the word correctly, and you lose if the figure is completed.
 

@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import models.ImagesContainer;
@@ -19,10 +20,7 @@ import models.SecretWord;
 import windows.controllers.RootController;
 
 import java.net.URL;
-import java.util.Dictionary;
-import java.util.List;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameController implements Initializable {
 
@@ -78,18 +76,7 @@ public class GameController implements Initializable {
         String inputText = wordGuesserField.getText();
         imagesContainer = new ImagesContainer();
 
-        if (imageIndex == 9) {
-            Alert gameOverAlert = new Alert(Alert.AlertType.WARNING);
-            gameOverAlert.setTitle("Game Over :(");
-            gameOverAlert.setContentText("Try Again!");
-            gameOverAlert.showAndWait();
-
-            hiddenWordLabel.setText("PRESS F2 TO START A NEW GAME!");
-            wordGuesserField.setEditable(false);
-            tryWordButton.setDisable(true);
-            trySolveButton.setDisable(true);
-
-        } else if (guessedWordsList.getItems().contains(inputText)) {
+        if (guessedWordsList.getItems().contains(inputText)) {
             Label wrongLetterLabel = new Label(String.format("Letter '%s' already introduced", inputText));
             wrongLetterLabel.setStyle("-fx-background-color: orange; -fx-padding: 10;");
 
@@ -116,6 +103,23 @@ public class GameController implements Initializable {
                    imageIndex += 1;
                    if (imageIndex <= 9) { // Ensure index is within bounds
                        hangedImage.setImage(imagesContainer.getImage(imageIndex));
+                   }
+                   if (imageIndex == 9) {
+                       Alert gameOverAlert = new Alert(Alert.AlertType.WARNING);
+                       gameOverAlert.setTitle("Game Over :(");
+                       gameOverAlert.setContentText("Try Again!");
+                       gameOverAlert.showAndWait();
+
+                       String musicPath = Objects.requireNonNull(getClass().getResource("/music/socorro.mp3")).toExternalForm();
+                       mediaPlayer = new MediaPlayer(new Media(musicPath));
+
+                       mediaPlayer.setVolume(0.5);
+                       mediaPlayer.play();
+
+                       hiddenWordLabel.setText("PRESS F3 FINISH THE GAME!");
+                       wordGuesserField.setEditable(false);
+                       tryWordButton.setDisable(true);
+                       trySolveButton.setDisable(true);
                    }
                }
                else {
@@ -160,6 +164,10 @@ public class GameController implements Initializable {
         Random random = new Random();
 
         String selectedWord = wordsController.wordsListProperty().get(random.nextInt(wordsController.wordsListProperty().size()));
+        // llamar a un nuevo imagesContainer para resetear las imágenes
+        if (imagesContainer == null) {
+            imagesContainer = new ImagesContainer();
+        }
 
         // Create the secret word and bind its hidden word to the label
         secretWord = new SecretWord(selectedWord);
@@ -173,6 +181,10 @@ public class GameController implements Initializable {
         guessedWordsList.getItems().clear();
         wordGuesserField.clear();
         scoreTextField.setText("0");
+
+        // establecer la imagen 1 para reiniciar el juego
+        imageIndex = 1;
+        hangedImage.setImage(imagesContainer.getImage(imageIndex));
     }
 
     private void healthPointsUpdate() {
