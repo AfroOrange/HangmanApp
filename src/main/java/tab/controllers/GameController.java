@@ -101,7 +101,7 @@ public class GameController implements Initializable {
                    healthPointsUpdate();
 
                    imageIndex += 1;
-                   if (imageIndex <= 9) { // Ensure index is within bounds
+                   if (imageIndex <= 9) {
                        hangedImage.setImage(imagesContainer.getImage(imageIndex));
                    }
                    if (imageIndex == 9) {
@@ -111,11 +111,7 @@ public class GameController implements Initializable {
                        gameOverAlert.showAndWait();
 
                        // añadir la música de detorra
-                       String musicPath = Objects.requireNonNull(getClass().getResource("/music/socorro.mp3")).toExternalForm();
-                       MediaPlayer gameOverSound = new MediaPlayer(new Media(musicPath));
-
-                       gameOverSound.setVolume(0.5);
-                       gameOverSound.play();
+                       setGameOverSound();
 
                        // resetear los campos
                        hiddenWordLabel.setText("PRESS F3 FINISH THE GAME!");
@@ -152,30 +148,30 @@ public class GameController implements Initializable {
         nicknameLabel.textProperty().bind(nicknameSession);
     }
 
-    public AnchorPane getRoot() {
-        return root;
-    }
-
-    public void setNickname(String nickname) {
-        nicknameSession.set(nickname);
-    }
-
     public void startGame() {
         // Start game
         WordsController wordsController = new WordsController();
         Random random = new Random();
 
         String selectedWord = wordsController.wordsListProperty().get(random.nextInt(wordsController.wordsListProperty().size()));
-        // llamar a un nuevo imagesContainer para resetear las imágenes
-        if (imagesContainer == null) {
-            imagesContainer = new ImagesContainer();
-        }
 
         // Create the secret word and bind its hidden word to the label
         secretWord = new SecretWord(selectedWord);
-
         // Bind the hidden word property of secretWord to the hiddenWordLabel text
         hiddenWordLabel.textProperty().bindBidirectional(secretWord.hiddenWordProperty());
+
+        // Reset fields
+        resetFields();
+    }
+
+    private void resetFields() {
+        // condition to check if imagesContainer is null
+        if (imagesContainer == null) {
+            imagesContainer = new ImagesContainer();
+        }
+        // Reset image and update imageIndex
+        imageIndex = 1;
+        hangedImage.setImage(imagesContainer.getImage(imageIndex));
 
         // Reset fields
         livesLabel.setText("\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4\uD83D\uDDA4");
@@ -183,10 +179,14 @@ public class GameController implements Initializable {
         guessedWordsList.getItems().clear();
         wordGuesserField.clear();
         scoreTextField.setText("0");
+    }
 
-        // establecer la imagen 1 para reiniciar el juego
-        imageIndex = 1;
-        hangedImage.setImage(imagesContainer.getImage(imageIndex));
+    private void setGameOverSound() {
+        String musicPath = Objects.requireNonNull(getClass().getResource("/music/socorro.mp3")).toExternalForm();
+        MediaPlayer gameOverSound = new MediaPlayer(new Media(musicPath));
+
+        gameOverSound.setVolume(0.5);
+        gameOverSound.play();
     }
 
     private void healthPointsUpdate() {
@@ -232,5 +232,13 @@ public class GameController implements Initializable {
 
     public HBox getGuessingHbox() {
         return guessingHbox;
+    }
+
+    public AnchorPane getRoot() {
+        return root;
+    }
+
+    public void setNickname(String nickname) {
+        nicknameSession.set(nickname);
     }
 }

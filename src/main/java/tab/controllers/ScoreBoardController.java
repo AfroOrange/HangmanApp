@@ -23,6 +23,11 @@ import java.util.ResourceBundle;
 
 public class ScoreBoardController implements Initializable {
 
+    // model
+    private List<Users> usersList;
+    private final String FILE_PATH = "jsonFiles/users.json";
+
+    // view
     @FXML
     private TableColumn<Users, String> nicknameColum;
 
@@ -34,10 +39,6 @@ public class ScoreBoardController implements Initializable {
 
     @FXML
     private TableColumn<Users, Integer> scoreColumn;
-
-    private List<Users> usersList;
-
-    private final String FILE_PATH = "jsonFiles/users.json";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -60,11 +61,12 @@ public class ScoreBoardController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
+    // getters
     public AnchorPane getRoot() {
         return root;
     }
 
+    // logic
     private void showScoreBoardData() throws IOException {
         Gson gson = new Gson();
 
