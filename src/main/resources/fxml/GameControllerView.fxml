@@ -20,7 +20,7 @@
       <HBox fx:id="guessingHbox" alignment="CENTER" layoutX="150.0" layoutY="317.0" prefWidth="300.0" spacing="5.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="325.0">
          <children>
             <TextField fx:id="wordGuesserField" prefWidth="180.0" style="-fx-border-color: orange;" HBox.hgrow="NEVER" />
-            <Button fx:id="tryWordButton" mnemonicParsing="false" onAction="#onTryWordAction" style="-fx-background-color: #ffb658; -fx-background-radius: 5;" text="Word">
+            <Button fx:id="tryWordButton" mnemonicParsing="false" onAction="#onTryWordAction" style="-fx-background-color: #ffb658; -fx-background-radius: 5;" text="Letter">
                <tooltip>
                   <Tooltip text="Try a word" />
                </tooltip>

@@ -24,6 +24,8 @@ import java.util.*;
 
 public class GameController implements Initializable {
 
+    // model
+
     private final StringProperty nicknameSession = new SimpleStringProperty();
     private SecretWord secretWord;
     private ImagesContainer imagesContainer;
@@ -63,8 +65,6 @@ public class GameController implements Initializable {
 
     @FXML
     private Button tryWordButton;
-
-    private MediaPlayer mediaPlayer;
 
     @FXML
     void onTrySolveAction(ActionEvent event) {
@@ -110,12 +110,14 @@ public class GameController implements Initializable {
                        gameOverAlert.setContentText("Try Again!");
                        gameOverAlert.showAndWait();
 
+                       // añadir la música de detorra
                        String musicPath = Objects.requireNonNull(getClass().getResource("/music/socorro.mp3")).toExternalForm();
-                       mediaPlayer = new MediaPlayer(new Media(musicPath));
+                       MediaPlayer gameOverSound = new MediaPlayer(new Media(musicPath));
 
-                       mediaPlayer.setVolume(0.5);
-                       mediaPlayer.play();
+                       gameOverSound.setVolume(0.5);
+                       gameOverSound.play();
 
+                       // resetear los campos
                        hiddenWordLabel.setText("PRESS F3 FINISH THE GAME!");
                        wordGuesserField.setEditable(false);
                        tryWordButton.setDisable(true);
@@ -231,5 +233,4 @@ public class GameController implements Initializable {
     public HBox getGuessingHbox() {
         return guessingHbox;
     }
-
 }

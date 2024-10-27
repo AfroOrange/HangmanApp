@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import models.Users;
 
@@ -21,10 +24,16 @@ import java.util.ResourceBundle;
 public class ScoreBoardController implements Initializable {
 
     @FXML
+    private TableColumn<Users, String> nicknameColum;
+
+    @FXML
+    private TableView<Users> playerScoreboardTable;
+
+    @FXML
     private AnchorPane root;
 
     @FXML
-    private ListView<String> scoreBoardList;
+    private TableColumn<Users, Integer> scoreColumn;
 
     private List<Users> usersList;
 
@@ -32,6 +41,9 @@ public class ScoreBoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        nicknameColum.setCellValueFactory(new PropertyValueFactory<>("name"));
+        scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+
         try {
             showScoreBoardData();
         } catch (IOException e) {
@@ -58,7 +70,6 @@ public class ScoreBoardController implements Initializable {
 
         Path jsonFilePath = Paths.get(FILE_PATH);
 
-        // Comprueba si el archivo existe
         if (!Files.exists(jsonFilePath)) {
             throw new FileNotFoundException("The file " + FILE_PATH + " was not found");
         }
@@ -66,12 +77,9 @@ public class ScoreBoardController implements Initializable {
         String jsonContent = Files.readString(jsonFilePath);
         List<Users> usersList = gson.fromJson(jsonContent, new TypeToken<List<Users>>() {}.getType());
 
-        scoreBoardList.getItems().clear();
+        playerScoreboardTable.getItems().clear();
+        playerScoreboardTable.getItems().addAll(usersList); // Add users and their scores to the table
 
-        for (Users user : usersList) {
-            String userDisplay = user.getName() + " | Score: " + user.getScore();
-            scoreBoardList.getItems().add(userDisplay);
-        }
     }
 
     public boolean checkUsername(String nickname) throws IOException {
@@ -89,8 +97,6 @@ public class ScoreBoardController implements Initializable {
                 return true;
             }
         }
-
         return false;
     }
-
 }

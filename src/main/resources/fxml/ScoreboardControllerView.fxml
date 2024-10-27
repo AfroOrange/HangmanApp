@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fee9cd;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+      <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Player Scoreboard" textOverrun="WORD_ELLIPSIS">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <ListView fx:id="scoreBoardList" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: orange;" VBox.vgrow="ALWAYS" />
+            <TableView fx:id="playerScoreboardTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="nicknameColum" prefWidth="457.0" text="Player ID">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-user" />
+                     </graphic>
+                  </TableColumn>
+                <TableColumn fx:id="scoreColumn" prefWidth="122.0">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-trophy" iconSize="15" />
+                     </graphic>
+                  </TableColumn>
+              </columns>
+            </TableView>
          </children>
       </VBox>
    </children>
