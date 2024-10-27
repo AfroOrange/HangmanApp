@@ -68,33 +68,35 @@ public class GameController implements Initializable {
 
     @FXML
     void onTrySolveAction(ActionEvent event) {
+        String guessedWord = wordGuesserField.getText();
+        if (Objects.equals(guessedWord, String.valueOf(secretWord.getWord()))) {
 
+            scoreTextField.setText(String.valueOf(Integer.parseInt(String.valueOf(livesLabel.getText().length()) + scoreTextField.getText())));
+
+            // message to inform the final score to the player
+            Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
+            winAlert.setTitle("Game Won!");
+            winAlert.setContentText(String.format("Contrats, you got %s points", scoreTextField.getText()));
+            winAlert.showAndWait();
+
+            gameFinished();
+        } else {
+            scoreTextField.setText(String.valueOf(Integer.parseInt(scoreTextField.getText()) - 1));
+            healthPointsUpdate();
+            imageIndex +=1;
+            hangedImage.setImage(imagesContainer.getImage(imageIndex));
+        }
     }
 
     @FXML
     void onTryWordAction(ActionEvent event) {
         String inputText = wordGuesserField.getText();
         imagesContainer = new ImagesContainer();
+        char guessedLetter = inputText.charAt(0); // Recoge el primer caracter del textfield
 
-        if (guessedWordsList.getItems().contains(inputText)) {
-            Label wrongLetterLabel = new Label(String.format("Letter '%s' already introduced", inputText));
-            wrongLetterLabel.setStyle("-fx-background-color: orange; -fx-padding: 10;");
-
-            // añadir coordenadas del hbox para centrar la etiqueta
-            wrongLetterLabel.setLayoutX(guessingHbox.getLayoutX() + 75);
-            wrongLetterLabel.setLayoutY(guessingHbox.getLayoutY() + guessingHbox.getHeight() - 17);
-            root.getChildren().add(wrongLetterLabel);
-
-            // Animación para desvanecer el mensaje
-            FadeTransition fade = new FadeTransition(Duration.seconds(2), wrongLetterLabel);
-            fade.setFromValue(1.0);
-            fade.setToValue(0.0);
-            fade.setOnFinished(e -> root.getChildren().remove(wrongLetterLabel));
-            fade.play();
-
-        } else if (inputText != null && !inputText.isEmpty() && !guessedWordsList.getItems().contains(inputText)) {
-               char guessedLetter = inputText.charAt(0); // Recoge el primer caracter del textfield
-
+        if (guessedWordsList.getItems().contains(inputText) && !inputText.equals(" ")) {
+            onRepeatedLetter(guessedLetter);
+        } else if (!guessedWordsList.getItems().contains(inputText) && !inputText.equals(" ")) {
                if (secretWord.guessLetter(guessedLetter) == 0) {
                    // Si la letra no está, se añade a las palabras usadas y se resta 1 al score
                    scoreTextField.setText(String.valueOf(Integer.parseInt(scoreTextField.getText()) - 1));
@@ -105,19 +107,7 @@ public class GameController implements Initializable {
                        hangedImage.setImage(imagesContainer.getImage(imageIndex));
                    }
                    if (imageIndex == 9) {
-                       Alert gameOverAlert = new Alert(Alert.AlertType.WARNING);
-                       gameOverAlert.setTitle("Game Over :(");
-                       gameOverAlert.setContentText("Try Again!");
-                       gameOverAlert.showAndWait();
-
-                       // añadir la música de detorra
-                       setGameOverSound();
-
-                       // resetear los campos
-                       hiddenWordLabel.setText("PRESS F3 FINISH THE GAME!");
-                       wordGuesserField.setEditable(false);
-                       tryWordButton.setDisable(true);
-                       trySolveButton.setDisable(true);
+                        gameOverAlert();
                    }
                }
                else {
@@ -132,7 +122,6 @@ public class GameController implements Initializable {
            }
        }
 
-
     public GameController() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameControllerView.fxml"));
@@ -146,12 +135,18 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         nicknameLabel.textProperty().bind(nicknameSession);
+        trySolveButton.setDisable(true);
+        tryWordButton.setDisable(true);
     }
 
     public void startGame() {
         // Start game
         WordsController wordsController = new WordsController();
         Random random = new Random();
+
+        // enable buttons
+        tryWordButton.setDisable(false);
+        trySolveButton.setDisable(false);
 
         String selectedWord = wordsController.wordsListProperty().get(random.nextInt(wordsController.wordsListProperty().size()));
 
@@ -162,6 +157,44 @@ public class GameController implements Initializable {
 
         // Reset fields
         resetFields();
+    }
+
+    // alert to inform the player they've lost the game
+    private void gameOverAlert() {
+        Alert gameOverAlert = new Alert(Alert.AlertType.WARNING);
+        gameOverAlert.setTitle("Game Over :(");
+        gameOverAlert.setContentText(String.format("The secret word was: %s", secretWord.getWord()));
+        gameOverAlert.showAndWait();
+
+        // add music on defeat
+        setGameOverSound();
+
+        // game ends and disable buttons
+        gameFinished();
+    }
+
+    private void onRepeatedLetter(char inputText) {
+        Label wrongLetterLabel = new Label(String.format("Letter '%s' already introduced", inputText));
+        wrongLetterLabel.setStyle("-fx-background-color: orange; -fx-padding: 10;");
+
+        // añadir coordenadas del hbox para centrar la etiqueta
+        wrongLetterLabel.setLayoutX(guessingHbox.getLayoutX() + 75);
+        wrongLetterLabel.setLayoutY(guessingHbox.getLayoutY() + guessingHbox.getHeight() - 17);
+        root.getChildren().add(wrongLetterLabel);
+
+        // Animación para desvanecer el mensaje
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), wrongLetterLabel);
+        fade.setFromValue(1.0);
+        fade.setToValue(0.0);
+        fade.setOnFinished(e -> root.getChildren().remove(wrongLetterLabel));
+        fade.play();
+    }
+
+    private void gameFinished() {
+        hiddenWordLabel.setText("PRESS F3 FINISH THE GAME!");
+        wordGuesserField.setEditable(false);
+        tryWordButton.setDisable(true);
+        trySolveButton.setDisable(true);
     }
 
     private void resetFields() {

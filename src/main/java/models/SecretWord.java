@@ -37,4 +37,7 @@ public class SecretWord {
         hiddenWord.set(newHiddenWord.toString()); // Update the hidden word property
         return appearances;
     }
+    public String getWord() {
+        return word;
+    }
 }
