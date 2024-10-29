@@ -23,3 +23,7 @@ Else you can run them in the same command line:
     mvn clean compile exec:java
 
 ------------------------
+
+# Optional (recommended) 
+
+Download **Firacode Font** from [tonsky's repository](https://github.com/tonsky/FiraCode)
