@@ -4,6 +4,12 @@
 
 ## How to install
 
-1- Download the repository zip file or
+1- Download the zip file or clone the repository 
 
-  git clone 
+2- Open terminal an run these commandds:
+
+    mvn clean
+
+    mvn compile
+
+    mvn exec:java
