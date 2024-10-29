@@ -124,7 +124,7 @@ public class LoginController implements Initializable {
                     }.getType());
                 }
             }
-            Users newUser = new Users();
+            Users newUser = new Users(nicknameField.getText(),0);
             newUser.setName(nickname);
             usersList.add(newUser);
 

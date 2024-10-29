@@ -71,20 +71,24 @@ public class GameController implements Initializable {
         String guessedWord = wordGuesserField.getText();
         if (Objects.equals(guessedWord, String.valueOf(secretWord.getWord()))) {
 
-            scoreTextField.setText(String.valueOf(Integer.parseInt(String.valueOf(livesLabel.getText().length()) + scoreTextField.getText())));
+            hiddenWordLabel.setText(secretWord.getWord());
 
-            // message to inform the final score to the player
-            Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
-            winAlert.setTitle("Game Won!");
-            winAlert.setContentText(String.format("Contrats, you got %s points", scoreTextField.getText()));
-            winAlert.showAndWait();
-
+            getWinScore();
             gameFinished();
         } else {
+            guessedWordsList.getItems().add(guessedWord);
             scoreTextField.setText(String.valueOf(Integer.parseInt(scoreTextField.getText()) - 1));
             healthPointsUpdate();
             imageIndex +=1;
             hangedImage.setImage(imagesContainer.getImage(imageIndex));
+
+            if (imageIndex == 9) {
+                int loseScore = Integer.parseInt(scoreTextField.getText()) - 50;
+                scoreTextField.setText(String.valueOf(loseScore));
+
+                gameOverAlert();
+                gameFinished();
+            }
         }
     }
 
@@ -107,7 +111,10 @@ public class GameController implements Initializable {
                        hangedImage.setImage(imagesContainer.getImage(imageIndex));
                    }
                    if (imageIndex == 9) {
-                        gameOverAlert();
+                       int loseScore = Integer.parseInt(scoreTextField.getText()) - 50;
+                       scoreTextField.setText(String.valueOf(loseScore));
+
+                       gameOverAlert();
                    }
                }
                else {
@@ -115,8 +122,14 @@ public class GameController implements Initializable {
                    scoreTextField.setText(String.valueOf(Integer.parseInt(scoreTextField.getText()) + 1));
                    secretWord.updateHiddenWord();
                    hiddenWordLabel.setText(secretWord.getHiddenWord());
+
+                   // if the player has guessed all the letters, the game is won
+                   if (!hiddenWordLabel.getText().contains("_")) {
+                         getWinScore();
+                         gameFinished();
+                   }
                }
-               // Añade al palabra usada a la lista
+               // Add the guessed word to the list
                guessedWordsList.getItems().add(inputText);
                wordGuesserField.clear();
            }
@@ -192,6 +205,7 @@ public class GameController implements Initializable {
 
     private void gameFinished() {
         hiddenWordLabel.setText("PRESS F3 FINISH THE GAME!");
+        wordGuesserField.clear();
         wordGuesserField.setEditable(false);
         tryWordButton.setDisable(true);
         trySolveButton.setDisable(true);
@@ -228,6 +242,28 @@ public class GameController implements Initializable {
             String updatedLives = currentLives.substring(0, currentLives.length() - 2); // Remove last character
             livesLabel.setText(updatedLives); // Update livesLabel with new string
         }
+    }
+
+    private void getWinScore () {
+        int livesScore = livesLabel.getText().length() / 2;
+        int wordScore = Integer.parseInt(scoreTextField.getText());
+        int winScore = (livesScore * wordScore) + 50;
+
+        scoreTextField.setText(String.valueOf((winScore)));
+
+        ScoreBoardController scoreBoardController = new ScoreBoardController();
+
+        try {
+            scoreBoardController.saveScoreToJson(nicknameSession.get(), winScore);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        // message to inform the final score to the player
+        Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
+        winAlert.setTitle("Game Won!");
+        winAlert.setContentText(String.format("Contrats, you got %s points", scoreTextField.getText()));
+        winAlert.showAndWait();
     }
 
     // getters and setters
@@ -273,5 +309,13 @@ public class GameController implements Initializable {
 
     public void setNickname(String nickname) {
         nicknameSession.set(nickname);
+    }
+
+    public Button getTrySolveButton() {
+        return trySolveButton;
+    }
+
+    public Button getTryWordButton() {
+        return tryWordButton;
     }
 }

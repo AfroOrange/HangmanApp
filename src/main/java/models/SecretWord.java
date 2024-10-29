@@ -9,7 +9,20 @@ public class SecretWord {
 
     public SecretWord(String word) {
         this.word = word;
-        this.hiddenWord = new SimpleStringProperty("_".repeat(word.length())); // Initialize with underscores
+        this.hiddenWord = new SimpleStringProperty(generateHiddenWord(word));
+    }
+
+    private String generateHiddenWord(String word) {
+        // Replace letters with underscores and keep spaces
+        StringBuilder hiddenWordBuilder = new StringBuilder();
+        for (char c : word.toCharArray()) {
+            if (c == ' ') {
+                hiddenWordBuilder.append(" "); // Keep spaces as is
+            } else {
+                hiddenWordBuilder.append("_"); // Replace other characters with underscores
+            }
+        }
+        return hiddenWordBuilder.toString();
     }
 
     public StringProperty hiddenWordProperty() {
@@ -21,7 +34,6 @@ public class SecretWord {
     }
 
     public void updateHiddenWord() {
-        // Logic to update hiddenWord based on guesses
         hiddenWord.set(hiddenWord.get());
     }
 
@@ -37,6 +49,7 @@ public class SecretWord {
         hiddenWord.set(newHiddenWord.toString()); // Update the hidden word property
         return appearances;
     }
+
     public String getWord() {
         return word;
     }

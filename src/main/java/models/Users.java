@@ -1,26 +1,27 @@
 package models;
 
 public class Users {
+    private String name;
+    private int score;
 
-    protected String name;
-    public int score = 0;
-
-    public Users() {
-
-    }
-    public Users(String name) {
+    public Users(String name, int score) {
         this.name = name;
+        this.score = score;
     }
 
     public String getName() {
         return name;
-
-    }
-    public int getScore() {
-        return score;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

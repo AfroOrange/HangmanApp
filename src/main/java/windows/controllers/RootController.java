@@ -75,19 +75,24 @@ public class RootController implements Initializable {
 
     @FXML
     public void onStopGameAction() {
-        // crea una alerta para indicar que el juego terminó y revelar la hiddenword
+        // add an alert and reveal the hidden word
         Alert stopGameAlert = new Alert(Alert.AlertType.INFORMATION);
-        stopGameAlert.setTitle(String.format("Game Over, you got %s points", gameController.getScoreTextField().toString()));
-        stopGameAlert.setContentText("The secret word was: " + gameController.getSecretWord().toString());
+        stopGameAlert.setTitle("Game Finished");
+        stopGameAlert.setContentText("Try Again!");
         stopGameAlert.showAndWait();
 
-        // limpia los campos
         gameController.getHiddenWordLabel().setText("PRESS F2 TO START A NEW GAME!");
+
+        // clear fields
         gameController.getGuessedWordsList().getItems().clear();
         gameController.wordGuesserField.clear();
         gameController.getLivesLabel().setText(" ");
-        gameController.wordGuesserField.setEditable(false);
         gameController.getScoreTextField().setText(" ");
+
+        //disable buttons
+        gameController.wordGuesserField.setEditable(false);
+        gameController.getTrySolveButton().setDisable(true);
+        gameController.getTryWordButton().setDisable(true);
 
         // se para la música
         backgroundMusic.stop();
@@ -96,7 +101,6 @@ public class RootController implements Initializable {
         wordsTab.setDisable(false);
         }
 
-
     @FXML
     void onNewGameAction(ActionEvent event) {
         gameController.wordGuesserField.setEditable(true);
@@ -104,10 +108,10 @@ public class RootController implements Initializable {
         gameController.startGame();
         wordsTab.setDisable(true);
 
-        // Se inicia la música de fondo
+        // background music starts playing
         playInGameBackgroundMusic();
 
-        // bindear el volumen de la música al slider
+        // bind volume slider to background music volume
         volumeSlider.setValue(backgroundMusic.getVolume());
         backgroundMusic.volumeProperty().bindBidirectional(volumeSlider.valueProperty());
     }

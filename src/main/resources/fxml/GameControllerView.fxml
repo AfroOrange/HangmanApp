@@ -54,7 +54,7 @@
                   <FontIcon iconLiteral="fas-trophy" iconSize="17" />
                </graphic>
             </Label>
-            <TextField fx:id="scoreTextField" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefColumnCount="5" prefWidth="40.0" style="-fx-border-color: orange;">
+            <TextField fx:id="scoreTextField" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefColumnCount="5" prefWidth="50.0" style="-fx-border-color: orange;">
                <font>
                   <Font size="14.0" />
                </font>
@@ -75,27 +75,31 @@
             </Label>
          </children>
       </HBox>
-      <VBox alignment="CENTER" layoutX="14.0" layoutY="104.0" prefHeight="200.0" prefWidth="100.0">
+      <VBox alignment="CENTER" layoutX="14.0" layoutY="104.0" prefHeight="200.0" prefWidth="114.0">
          <children>
             <Label text="Guessed Words">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <ListView fx:id="guessedWordsList" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: orange;" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="guessedWordsList" prefHeight="183.0" prefWidth="123.0" style="-fx-border-color: orange;" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
       <Label fx:id="livesLabel" layoutX="10.0" layoutY="36.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="30.0" />
-      <ImageView fx:id="hangedImage" fitHeight="197.0" fitWidth="192.0" layoutX="230.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="171.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="229.1284942626953" AnchorPane.topAnchor="44.0">
-         <image>
-            <Image url="@../images/1.png" />
-         </image>
-      </ImageView>
       <Label fx:id="hiddenWordLabel" alignment="CENTER" layoutX="150.0" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="338.0" text="PRESS F2 TO PLAY!" AnchorPane.bottomAnchor="119.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="112.0" AnchorPane.topAnchor="278.0">
          <font>
             <Font name="Fira Code Regular" size="20.0" />
          </font>
       </Label>
+      <VBox alignment="CENTER" layoutX="222.0" layoutY="53.0" prefHeight="200.0" prefWidth="227.0">
+         <children>
+            <ImageView fx:id="hangedImage" fitHeight="197.0" fitWidth="209.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/1.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
    </children>
    <opaqueInsets>
       <Insets />

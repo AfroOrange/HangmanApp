@@ -18,6 +18,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -61,10 +62,6 @@ public class ScoreBoardController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    // getters
-    public AnchorPane getRoot() {
-        return root;
-    }
 
     // logic
     private void showScoreBoardData() throws IOException {
@@ -76,12 +73,62 @@ public class ScoreBoardController implements Initializable {
             throw new FileNotFoundException("The file " + FILE_PATH + " was not found");
         }
 
-        String jsonContent = Files.readString(jsonFilePath);
-        List<Users> usersList = gson.fromJson(jsonContent, new TypeToken<List<Users>>() {}.getType());
+        // Check if the file exists, and read its content if it does
+        if (Files.exists(jsonFilePath)) {
+            String jsonContent = Files.readString(jsonFilePath);
+
+            // Deserialize the existing users from JSON
+            usersList = gson.fromJson(jsonContent, new TypeToken<List<Users>>() {}.getType());
+
+            // Handle the case where JSON content is malformed or empty
+            if (usersList == null) {
+                usersList = new ArrayList<>();
+            }
+        }
 
         playerScoreboardTable.getItems().clear();
         playerScoreboardTable.getItems().addAll(usersList); // Add users and their scores to the table
 
+    }
+    public void saveScoreToJson(String nickname, int winScore) {
+        Gson gson = new Gson();
+        Path jsonFilePath = Paths.get(FILE_PATH);
+
+        try {
+            // Load existing data
+            if (Files.exists(jsonFilePath)) {
+                String jsonContent = Files.readString(jsonFilePath);
+                usersList = gson.fromJson(jsonContent, new TypeToken<List<Users>>() {}.getType());
+                if (usersList == null) {
+                    usersList = new ArrayList<>();
+                }
+            } else {
+                usersList = new ArrayList<>();
+            }
+
+            // Update or add user
+            boolean userExists = false;
+            for (Users user : usersList) {
+                if (user.getName().equalsIgnoreCase(nickname)) {
+                    int newScore = user.getScore() + winScore;  // Add the new score to the existing score
+                    user.setScore(newScore);                    // Update score with the cumulative value
+                    userExists = true;
+                    break;
+                }
+            }
+
+            if (!userExists) {
+                usersList.add(new Users(nickname, winScore)); // If user is new, add them with initial winScore
+            }
+
+            // Write back the updated list
+            String updatedJsonContent = gson.toJson(usersList);
+            Files.writeString(jsonFilePath, updatedJsonContent);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error saving score to JSON file", e);
+        }
     }
 
     public boolean checkUsername(String nickname) throws IOException {
@@ -100,5 +147,22 @@ public class ScoreBoardController implements Initializable {
             }
         }
         return false;
+    }
+
+    // getters
+    public AnchorPane getRoot() {
+        return root;
+    }
+
+    public TableColumn<Users, String> getNicknameColum() {
+        return nicknameColum;
+    }
+
+    public TableView<Users> getPlayerScoreboardTable() {
+        return playerScoreboardTable;
+    }
+
+    public TableColumn<Users, Integer> getScoreColumn() {
+        return scoreColumn;
     }
 }
