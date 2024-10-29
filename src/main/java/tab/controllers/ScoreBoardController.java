@@ -2,6 +2,7 @@ package tab.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -59,6 +60,15 @@ public class ScoreBoardController implements Initializable {
             loader.setController(this);
             loader.load();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void onReloadAction(ActionEvent event) {
+        try {
+            showScoreBoardData();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
