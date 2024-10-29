@@ -78,6 +78,7 @@ public class RootController implements Initializable {
         // add an alert and reveal the hidden word
         Alert stopGameAlert = new Alert(Alert.AlertType.INFORMATION);
         stopGameAlert.setTitle("Game Finished");
+        stopGameAlert.setHeaderText(null);
         stopGameAlert.setContentText("Try Again!");
         stopGameAlert.showAndWait();
 

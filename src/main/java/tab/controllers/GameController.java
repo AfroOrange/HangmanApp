@@ -176,6 +176,7 @@ public class GameController implements Initializable {
     private void gameOverAlert() {
         Alert gameOverAlert = new Alert(Alert.AlertType.WARNING);
         gameOverAlert.setTitle("Game Over :(");
+        gameOverAlert.setHeaderText(null);
         gameOverAlert.setContentText(String.format("The secret word was: %s", secretWord.getWord()));
         gameOverAlert.showAndWait();
 
@@ -262,7 +263,8 @@ public class GameController implements Initializable {
         // message to inform the final score to the player
         Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
         winAlert.setTitle("Game Won!");
-        winAlert.setContentText(String.format("Contrats, you got %s points", scoreTextField.getText()));
+        winAlert.setHeaderText(null);
+        winAlert.setContentText(String.format("Contrats, you got %s points!", scoreTextField.getText()));
         winAlert.showAndWait();
     }
 

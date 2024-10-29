@@ -99,6 +99,7 @@ public class LoginController implements Initializable {
         if (scoreBoardController.checkUsername(nickname)) {
             Alert duplicateNickname = new Alert(Alert.AlertType.INFORMATION);
             duplicateNickname.setTitle("Re-Login");
+            duplicateNickname.setHeaderText(null);
             duplicateNickname.setContentText("Welcome back: " + nicknameField.getText() + "!");
             duplicateNickname.showAndWait();
 
@@ -108,8 +109,8 @@ public class LoginController implements Initializable {
 
             // Se produce un mensaje de bienvenida con el nickname introducido
             loginAlert.setTitle("First Login");
-            loginAlert.setHeaderText("Welcome: " + nicknameField.getText() + "!");
-            loginAlert.setContentText("Hangman game is about to start");
+            loginAlert.setHeaderText(null);
+            loginAlert.setContentText("Welcome: " + nicknameField.getText() + "!" + "\n" + "You are now registered in the game");
             loginAlert.showAndWait();
 
             // Si el usuario es nuevo, lo agrega a la lista
