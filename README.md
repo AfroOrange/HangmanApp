@@ -10,6 +10,16 @@
 
     mvn clean
 
+Then: 
+
     mvn compile
 
+Finally: 
+
     mvn exec:java
+
+Else you can run them in the same command line:
+
+    mvn clean compile exec:java
+
+------------------------
