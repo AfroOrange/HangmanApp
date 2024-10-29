@@ -6,7 +6,7 @@
 
 1- Download the zip file or clone the repository 
 
-2- Open terminal an run these commandds:
+2- Navigate to the Hangman directory, open a terminal and run these commandds:
 
     mvn clean
 
