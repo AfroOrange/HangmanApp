@@ -4,4 +4,6 @@
 
 ## How to install
 
-1- Download the repository zip file or [git clone]
+1- Download the repository zip file or
+
+  git clone 
