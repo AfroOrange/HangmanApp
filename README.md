@@ -26,4 +26,4 @@ Else you can run them in the same command line:
 
 # Optional (recommended) 
 
-Download **Firacode Font** from [tonsky's repository](https://github.com/tonsky/FiraCode)
+Download **'Firacode Font'** from [tonsky's repository](https://github.com/tonsky/FiraCode)
