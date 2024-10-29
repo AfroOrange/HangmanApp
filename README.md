@@ -1,7 +1,5 @@
 # HANGMAN GAME
 
---------------------
-
 ## How to install
 
 1- Download the zip file or clone the repository 
