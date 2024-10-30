@@ -5,7 +5,6 @@
 1. **Clone the repository:**
    ```sh
    git clone https://github.com/AfroOrange/hangman-game.git
-   cd hangman-game
    
 2- Navigate to the Hangman directory, open a terminal and run these commands:
 
