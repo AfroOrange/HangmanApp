@@ -320,4 +320,12 @@ public class GameController implements Initializable {
     public Button getTryWordButton() {
         return tryWordButton;
     }
+
+    public ImageView getHangedImage() {
+        return hangedImage;
+    }
+
+    public void setHangedImage(ImageView hangedImage) {
+        this.hangedImage = hangedImage;
+    }
 }

@@ -95,6 +95,9 @@ public class RootController implements Initializable {
         gameController.getTrySolveButton().setDisable(true);
         gameController.getTryWordButton().setDisable(true);
 
+        // reset the image
+        gameController.getHangedImage().setImage(new Image(Objects.requireNonNull(getClass().getResource("/images/1.png")).toString()));
+
         // se para la música
         backgroundMusic.stop();
 
