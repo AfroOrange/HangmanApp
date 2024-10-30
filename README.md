@@ -3,8 +3,10 @@
 ## Installation
 
 1. **Clone the repository:**
-   
+
+   ```
    git clone https://github.com/AfroOrange/hangman-game.git
+   ```
    
 2- Navigate to the Hangman directory, open a terminal and run these commands:
 
