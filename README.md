@@ -2,7 +2,7 @@
 
 ## Installation
 
-1. **Clone the repository:**
+1- **Clone the repository:**
 
    ```
    git clone https://github.com/AfroOrange/hangman-game.git
