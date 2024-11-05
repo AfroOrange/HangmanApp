@@ -20,11 +20,11 @@ This is a Hangman game implemented in Java using JavaFX for the graphical user i
 
 2. Build the project using Maven:
 
-    ```sh mvn clean install
+    ```sh mvn clean install```
 
 3. Run the application:
 
-    ``` mvn javafx:run
+    ``` mvn javafx:run```
 
 ## Usage
 
