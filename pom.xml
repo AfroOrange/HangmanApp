@@ -30,6 +30,20 @@
       <version>22.0.1</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-web -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-web</artifactId>
+      <version>22.0.1</version>
+    </dependency>
+
+    <!-- Dependency for WebView (.md files render) -->
+    <dependency>
+      <groupId>com.vladsch.flexmark</groupId>
+      <artifactId>flexmark-all</artifactId>
+      <version>0.62.2</version>
+    </dependency>
+
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>

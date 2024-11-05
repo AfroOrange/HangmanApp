@@ -159,7 +159,7 @@ public class LoginController implements Initializable {
         RootController rootController = new RootController(gameController);
 
         // añade el stage y el icono de la aplicación
-        appIcon = new Image(getClass().getResource("/images/9.png").toString());
+        appIcon = new Image(Objects.requireNonNull(getClass().getResource("/images/9.png")).toString());
         Stage stage = new Stage();
 
         stage.getIcons().add(appIcon);

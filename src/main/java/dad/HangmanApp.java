@@ -22,7 +22,7 @@ public class HangmanApp extends Application {
         Image appIcon = new Image(Objects.requireNonNull(getClass().getResource("/images/9.png")).toString());
 
         hangmanStage.getIcons().add(appIcon);
-        hangmanStage.setTitle("Market App");
+        hangmanStage.setTitle("Hangman Game");
         hangmanStage.setScene(hangmanScene);
         hangmanStage.show();
     }
