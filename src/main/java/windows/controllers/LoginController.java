@@ -116,7 +116,13 @@ public class LoginController implements Initializable {
             // Si el usuario es nuevo, lo agrega a la lista
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             File jsonFile = new File("jsonFiles/users.json");
+            java.nio.file.Path jsonFilePath = jsonFile.toPath();
             List<Users> usersList = new ArrayList<>();
+
+            if (!Files.exists(jsonFilePath)) {
+                Files.createFile(jsonFilePath);
+                Files.writeString(jsonFilePath, "[]"); // Initialize with an empty JSON array
+            }
 
             if (jsonFile.exists()) {
                 String jsonContent = Files.readString(jsonFile.toPath());
