@@ -20,10 +20,10 @@ target/
 .settings
 .springBeans
 .sts4-cache
+*.json
 
 ### NetBeans ###
 /nbproject/private/
-jsonFiles/*.json
 /nbbuild/
 /dist/
 /nbdist/

@@ -108,6 +108,14 @@ public class RootController implements Initializable {
 
     @FXML
     void onNewGameAction(ActionEvent event) {
+        if (wordsController.getWordsList().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error: No words added");
+            alert.setHeaderText(null);
+            alert.setContentText("Please add words to the list before starting a new game");
+            alert.showAndWait();
+            return;
+        }
         gameController.wordGuesserField.setEditable(true);
         gameController.getHiddenWordLabel().setText("");
         gameController.startGame();
