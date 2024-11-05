@@ -18,11 +18,13 @@ This is a Hangman game implemented in Java using JavaFX for the graphical user i
    git clone https://github.com/AfroOrange/hangman-game.git
    cd hangman-game
 
-1- Build the project using Maven: 
-    ```sh mvn clean install```
+2. Build the project using Maven:
 
-2- Run the application:
-    ``` mvn javafx:run ```
+    ```sh mvn clean install
+
+3. Run the application:
+
+    ``` mvn javafx:run
 
 ## Usage
 
