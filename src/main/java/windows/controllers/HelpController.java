@@ -25,6 +25,7 @@ public class HelpController implements Initializable {
     void onCloseAction(ActionEvent e) {
         root.getScene().getWindow().hide();
     }
+
     public BorderPane getRoot() {
         return root;
     }

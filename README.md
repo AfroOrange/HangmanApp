@@ -47,4 +47,4 @@ Help Window: Provides help and instructions for the game.
 -----------------------
 ## Optional (recommended) 
 
-Download **'Firacode Font'** from [tonsky's repository](https://github.com/tonsky/FiraCode)
+Download **'Firacode Font'** from [tonsky's repository](https://github.com/tonsky/FiraCode) to get a better experiencie

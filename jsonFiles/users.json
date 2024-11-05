@@ -1,1 +1,34 @@
-[{"name":"david","score":192},{"name":"jonathan","score":308},{"name":"Jorge","score":158},{"name":"elwiwi","score":45},{"name":"Miguel","score":50},{"name":"MEssi","score":114},{"name":"Luis","score":64}]
+[
+  {
+    "name": "david",
+    "score": 192
+  },
+  {
+    "name": "jonathan",
+    "score": 308
+  },
+  {
+    "name": "Jorge",
+    "score": 158
+  },
+  {
+    "name": "elwiwi",
+    "score": 45
+  },
+  {
+    "name": "Miguel",
+    "score": 50
+  },
+  {
+    "name": "MEssi",
+    "score": 114
+  },
+  {
+    "name": "Luis",
+    "score": 64
+  },
+  {
+    "name": "elwiwiw",
+    "score": 0
+  }
+]

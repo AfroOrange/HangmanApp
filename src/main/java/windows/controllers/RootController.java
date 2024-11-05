@@ -5,14 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tab.controllers.GameController;
 import tab.controllers.ScoreBoardController;
@@ -41,6 +39,9 @@ public class RootController implements Initializable {
 
         @FXML
         private BorderPane root;
+
+        @FXML
+        private MenuItem helpButton;
 
         public RootController(GameController gameController) {
             this.gameController = gameController;
@@ -131,7 +132,8 @@ public class RootController implements Initializable {
         helpStage.getIcons().add(appIcon);
         helpStage.setTitle("Hangman Game");
         helpStage.setScene(helpScene);
-        helpStage.show();
+        helpStage.initModality(Modality.APPLICATION_MODAL);
+        helpStage.showAndWait();
     }
 
     private void playInGameBackgroundMusic() {

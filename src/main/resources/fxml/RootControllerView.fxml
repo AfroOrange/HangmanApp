@@ -60,7 +60,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#onHelpAction" text="How to play" />
+              <MenuItem fx:id="helpButton" mnemonicParsing="false" onAction="#onHelpAction" text="How to play" />
             </items>
                <graphic>
                   <FontIcon iconLiteral="fltfal-chat-help-24" iconSize="15" />
