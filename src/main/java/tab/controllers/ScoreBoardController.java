@@ -1,6 +1,7 @@
 package tab.controllers;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import models.Users;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -41,6 +42,36 @@ public class ScoreBoardController implements Initializable {
     @FXML
     private TableColumn<Users, Integer> scoreColumn;
 
+    public ScoreBoardController() {
+        try {
+            // Create a directory to store the JSON files
+            File directory = new File("jsonFiles");
+            if (!directory.exists()) {
+                boolean dirCreated = directory.mkdir();
+                if (!dirCreated) {
+                    throw new RuntimeException("Failed to create directory 'jsonFiles'.");
+                }
+            }
+
+            // If the file does not exist, it is created
+            Path jsonFilePath = Paths.get(FILE_PATH);
+            if (!Files.exists(jsonFilePath)) {
+                Files.createFile(jsonFilePath);
+                Files.writeString(jsonFilePath, "[]"); // Initialize with an empty JSON array
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error initializing ScoreBoardController", e);
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ScoreboardControllerView.fxml"));
+            loader.setController(this);
+            loader.load();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         nicknameColum.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -49,16 +80,6 @@ public class ScoreBoardController implements Initializable {
         try {
             showScoreBoardData();
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public ScoreBoardController() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ScoreboardControllerView.fxml"));
-            loader.setController(this);
-            loader.load();
-        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -73,16 +94,9 @@ public class ScoreBoardController implements Initializable {
     }
 
     // logic
-// logic
     private void showScoreBoardData() throws IOException {
         Gson gson = new Gson();
         Path jsonFilePath = Paths.get(FILE_PATH);
-
-        // Check if the file exists, if not create a new one
-        if (!Files.exists(jsonFilePath)) {
-            Files.createFile(jsonFilePath);
-            Files.writeString(jsonFilePath, "[]"); // Initialize with an empty JSON array
-        }
 
         // Read the file content
         String jsonContent = Files.readString(jsonFilePath);

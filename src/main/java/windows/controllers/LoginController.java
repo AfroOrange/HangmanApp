@@ -113,7 +113,20 @@ public class LoginController implements Initializable {
             loginAlert.setContentText("Welcome: " + nicknameField.getText() + "!" + "\n" + "You are now registered in the game");
             loginAlert.showAndWait();
 
-            // Si el usuario es nuevo, lo agrega a la lista
+            // Create a directory to store the JSON files
+            File directory = new File("jsonFiles");
+            if (!directory.exists()) {
+                boolean dirCreated = directory.mkdir();
+                if (dirCreated) {
+                    System.out.println("Directory 'jsonFiles' created successfully.");
+                } else {
+                    System.out.println("Failed to create directory 'jsonFiles'.");
+                }
+            } else {
+                System.out.println("Directory 'jsonFiles' already exists.");
+            }
+
+            // If the file does not exist, it is created
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             File jsonFile = new File("jsonFiles/users.json");
             java.nio.file.Path jsonFilePath = jsonFile.toPath();
@@ -122,6 +135,9 @@ public class LoginController implements Initializable {
             if (!Files.exists(jsonFilePath)) {
                 Files.createFile(jsonFilePath);
                 Files.writeString(jsonFilePath, "[]"); // Initialize with an empty JSON array
+                System.out.println("File 'users.json' created and initialized.");
+            } else {
+                System.out.println("File 'users.json' already exists.");
             }
 
             if (jsonFile.exists()) {
