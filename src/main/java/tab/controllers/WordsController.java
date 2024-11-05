@@ -109,6 +109,8 @@ public class WordsController implements Initializable {
 
     @FXML
     void onRemoveWordAction(ActionEvent event) {
+
+
         String selectedWord = wordsListView.getSelectionModel().getSelectedItem();
         wordsList.remove(selectedWord);
 
@@ -118,16 +120,17 @@ public class WordsController implements Initializable {
 
     private void showWords() throws IOException {
         Gson gson = new Gson();
-
         Path jsonFilePath = Paths.get(FILE_PATH);
 
-        // Comprueba si el archivo existe
+        // Check if the file exists, if not create a new one
         if (!Files.exists(jsonFilePath)) {
-            throw new FileNotFoundException("The file " + FILE_PATH + " was not found");
+            Files.createFile(jsonFilePath);
+            Files.writeString(jsonFilePath, "[]"); // Initialize with an empty JSON array
         }
 
         String jsonContent = Files.readString(jsonFilePath);
-        List<String> palabrasList = gson.fromJson(jsonContent, new TypeToken<List<String>>() {}.getType());
+        List<String> palabrasList = gson.fromJson(jsonContent, new TypeToken<List<String>>() {
+        }.getType());
 
         wordsList.addAll(palabrasList);
     }

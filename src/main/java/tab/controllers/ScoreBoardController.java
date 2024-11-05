@@ -73,32 +73,32 @@ public class ScoreBoardController implements Initializable {
     }
 
     // logic
+// logic
     private void showScoreBoardData() throws IOException {
         Gson gson = new Gson();
-
         Path jsonFilePath = Paths.get(FILE_PATH);
 
+        // Check if the file exists, if not create a new one
         if (!Files.exists(jsonFilePath)) {
-            throw new FileNotFoundException("The file " + FILE_PATH + " was not found");
+            Files.createFile(jsonFilePath);
+            Files.writeString(jsonFilePath, "[]"); // Initialize with an empty JSON array
         }
 
-        // Check if the file exists, and read its content if it does
-        if (Files.exists(jsonFilePath)) {
-            String jsonContent = Files.readString(jsonFilePath);
+        // Read the file content
+        String jsonContent = Files.readString(jsonFilePath);
 
-            // Deserialize the existing users from JSON
-            usersList = gson.fromJson(jsonContent, new TypeToken<List<Users>>() {}.getType());
+        // Deserialize the existing users from JSON
+        usersList = gson.fromJson(jsonContent, new TypeToken<List<Users>>() {}.getType());
 
-            // Handle the case where JSON content is malformed or empty
-            if (usersList == null) {
-                usersList = new ArrayList<>();
-            }
+        // Handle the case where JSON content is malformed or empty
+        if (usersList == null) {
+            usersList = new ArrayList<>();
         }
 
         playerScoreboardTable.getItems().clear();
         playerScoreboardTable.getItems().addAll(usersList); // Add users and their scores to the table
-
     }
+
     public void saveScoreToJson(String nickname, int winScore) {
         Gson gson = new Gson();
         Path jsonFilePath = Paths.get(FILE_PATH);
