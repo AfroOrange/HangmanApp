@@ -52,3 +52,7 @@ This is a Hangman game implemented in Java using JavaFX for the graphical user i
 **Background Music**: Plays background music during the game.
 
 **Help Window**: Provides help and instructions for the game.
+
+## License 
+
+This project is licensed under the MIT License. See the LICENSE file for details
