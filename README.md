@@ -10,6 +10,7 @@ This is a Hangman game implemented in Java using JavaFX for the graphical user i
 - [Features](#features)
 - [Contributing](#contributing)
 - [License](#license)
+- [Recommended](#recommended)
 
 ## Installation
 
@@ -58,3 +59,7 @@ This is a Hangman game implemented in Java using JavaFX for the graphical user i
 ## License 
 
 This project is licensed under the MIT License. See the LICENSE file for details
+
+## Recommended
+
+To get an enhanced experience, try to install **_FiraCode_** font, you cand find it in [tonsky's](https://github.com/tonsky/FiraCode) repository.
